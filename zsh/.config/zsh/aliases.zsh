@@ -19,7 +19,7 @@ alias lzd='lazydocker'
 
 # Utility aliases
 alias chrome="open -a /Applications/Google\ Chrome.app"
-alias projects="cd $PROJECT_DIR"
+alias projects="cd ~/projects"
 
 # System information
 alias displays="system_profiler SPDisplaysDataType"
