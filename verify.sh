@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -42,13 +42,14 @@ failed=0
 }
 
 @verify_environment_variable() {
-  if [[ -v $1 ]]; then
+  local environment_variable=$1
+  if [ -z "${!environment_variable}" ]; then
+    failed=$(( failed + 1 ))
+    echo -e "${RED}FAIL:${CLEAR} $1 is not an invalid environment variable"
+    script_exit_code=1
+  else
     passed=$(( passed + 1 ))
     echo -e "${GREEN}PASS:${CLEAR} $1 is a valid environment variable"
-  else
-    failed=$(( failed + 1 ))
-    echo -e "${RED}FAIL:${CLEAR} $1 is not an valid environment variable"
-    script_exit_code=1
   fi
 }
 
@@ -96,17 +97,20 @@ failed=0
 @verify_binary jq
 @verify_binary kubectl
 @verify_binary mvn
+@verify_binary nvm
 @verify_binary openssl
 @verify_binary sam
 @verify_binary terraform
 @verify_binary cert-details
 
-@verify_directory $HOME
 @verify_directory $HOME/.dotfiles
 
 @verify_file /Users/iamkhattar/projects/personal/dotfiles/verify.sh
+
 @verify_environment_variable HOME
+
 @verify_on_path /opt/homebrew/bin
-@verify_symlink /Users/iamkhattar/projects/personal/dotfiles/test.txt /Users/iamkhattar/projects/personal/dotfiles/intellij/test.txt
+
+@verify_symlink $HOME/.zshrc $HOME/zsh/.zshrc
 
 @show_results
