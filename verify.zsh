@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -42,14 +42,13 @@ failed=0
 }
 
 @verify_environment_variable() {
-  local environment_variable=$1
-  if [ -z "${!environment_variable}" ]; then
-    failed=$(( failed + 1 ))
-    echo -e "${RED}FAIL:${CLEAR} $1 is not an invalid environment variable"
-    script_exit_code=1
-  else
+  if [[ -v $1 ]]; then
     passed=$(( passed + 1 ))
     echo -e "${GREEN}PASS:${CLEAR} $1 is a valid environment variable"
+  else
+    failed=$(( failed + 1 ))
+    echo -e "${RED}FAIL:${CLEAR} $1 is not an valid environment variable"
+    script_exit_code=1
   fi
 }
 
@@ -83,6 +82,7 @@ failed=0
 
 @verify_binary aws
 @verify_binary python3
+@verify_binary bat
 @verify_binary az
 @verify_binary fzf
 @verify_binary git
@@ -97,6 +97,9 @@ failed=0
 @verify_binary kubectl
 @verify_binary mvn
 @verify_binary openssl
+@verify_binary sam
+@verify_binary terraform
+@verify_binary cert-details
 
 @verify_directory $HOME
 @verify_directory $HOME/.dotfiles

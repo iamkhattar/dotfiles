@@ -1,4 +1,5 @@
-FROM homebrew/brew
+FROM homebrew/brew:latest
 
-COPY . /home/linuxbrew/.dotfiles
-RUN brew bundle install --file=/home/linuxbrew/.dotfiles/Brewfile
+COPY . .
+
+RUN brew update && brew install zsh && brew cleanup
