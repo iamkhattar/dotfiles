@@ -81,8 +81,26 @@ failed=0
   exit $script_exit_code
 }
 
+@verify_binary aws
+@verify_binary python3
+@verify_binary az
+@verify_binary fzf
+@verify_binary git
+@verify_binary go
+@verify_binary task
+@verify_binary gradle
+@verify_binary gum
 @verify_binary java
-@verify_directory /Users/iamkhattar
+@verify_binary helm
+@verify_binary jenv
+@verify_binary jq
+@verify_binary kubectl
+@verify_binary mvn
+@verify_binary openssl
+
+@verify_directory $HOME
+@verify_directory $HOME/.dotfiles
+
 @verify_file /Users/iamkhattar/projects/personal/dotfiles/verify.sh
 @verify_environment_variable HOME
 @verify_on_path /opt/homebrew/bin
