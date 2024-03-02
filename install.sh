@@ -9,6 +9,9 @@ if test ! $(which brew); then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Disable Homebrew analytics
+brew analytics off
+
 # Update Homebrew recipes
 brew update
 
