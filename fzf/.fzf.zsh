@@ -1,4 +1,4 @@
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
   if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
     PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
   fi

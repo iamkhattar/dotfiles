@@ -2,6 +2,7 @@
 
 CURRENT_OS=$(uname)
 
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 CLEAR='\033[0m'
 
@@ -63,20 +64,31 @@ function create_directories() {
   mkdir -p $HOME/projects/scratch
 }
 
-function verify_installation() {
-  echo -e "${GREEN}INFO:${CLEAR} Verifying installation"
-  chmod +x $HOME/.dotfiles/verify.sh
-  $HOME/.dotfiles/verify.sh
-}
-
-function symlink() {
-  echo -e "${GREEN}INFO:${CLEAR} Symlinking dotfiles"
+function stow_dotfiles() {
+  echo -e "${GREEN}INFO:${CLEAR} Stowing dotfiles"
   rm -rf ~/.zshrc
   rm -rf ~/.zprofile
   cd $HOME/.dotfiles && stow */
 }
 
+function verify_installation() {
+  echo -e "${GREEN}INFO:${CLEAR} Verifying installation"
+  chmod +x $HOME/.dotfiles/verify.zsh
+  $HOME/.dotfiles/verify.zsh
+}
+
+function display_banner() {
+    echo -e "${CLEAR}";
+    echo -e '\033[0;31m ____        _    __ _ _           ';
+    echo -e '\033[0;31m|  _ \  ___ | |_ / _(_) | ___  ___ ';
+    echo -e '\033[0;31m| | | |/ _ \| __| |_| | |/ _ \/ __|';
+    echo -e '\033[0;31m| |_| | (_) | |_|  _| | |  __/\__ \';
+    echo -e '\033[0;31m|____/ \___/ \__|_| |_|_|\___||___/';
+    echo -e "${CLEAR}";
+}
+
 function main() {
+  display_banner
   clone_dotfiles
   install_brew
   install_dependencies
@@ -85,7 +97,7 @@ function main() {
   install_zsh_plugins
   install_nvchad
   create_directories
-  symlink
+  stow_dotfiles
   verify_installation
 }
 
