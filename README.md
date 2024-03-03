@@ -100,7 +100,7 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
    ```bash
    jenv enable-plugin export
    ```
-   
+
 10. Create project directories:
 
    ```bash
