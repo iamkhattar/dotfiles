@@ -17,6 +17,7 @@ jobs:
         with:
           image: homebrew/brew:latest
           options: -v ${{ github.workspace }}://home/linuxbrew
+          shell: bash
           run: |
             brew install zsh
             rm -rf $HOME/.gitconfig && chmod +x install.sh && ./install.sh
