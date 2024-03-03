@@ -72,8 +72,8 @@ function stow_dotfiles() {
 
 function verify_installation() {
   echo -e "${GREEN}INFO:${CLEAR} Verifying installation"
-  chmod +x $HOME/.dotfiles/verify.sh
-  zsh $HOME/.dotfiles/verify.sh
+  chmod +x $HOME/.dotfiles/verify.zsh
+  zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
 }
 
 function display_banner() {
