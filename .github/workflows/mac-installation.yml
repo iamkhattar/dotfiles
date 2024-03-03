@@ -19,7 +19,7 @@ jobs:
           rm -rf ~/.oh-my-zsh
           rm -rf ~/powerlevel10k
       - name: Clone this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install using Install Script
         run: rm -rf $HOME/.gitconfig && chmod +x install.sh && ./install.sh
       - name: Verify using Verify Script
