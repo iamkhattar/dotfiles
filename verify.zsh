@@ -107,7 +107,7 @@ fi
 @verify_binary terraform
 @verify_binary cert-details
 
-@verify_directory $DOTFILES_DIR
+@verify_directory ~/.dotfiles
 @verify_directory ~/.config/zsh
 @verify_directory ~/.config/zsh/bin
 
@@ -134,21 +134,21 @@ fi
 @verify_environment_variable FZF_DEFAULT_COMMAND
 
 @verify_on_path $HOMEBREW_PATH_DIR
-@verify_on_path $HOME/.jenv/shims
+@verify_on_path ~/.jenv/shims
 
-@verify_symlink $HOME/.hushlogin .dotfiles/zsh/.hushlogin
-@verify_symlink $HOME/.p10k.zsh .dotfiles/zsh/.p10k.zsh
-@verify_symlink $HOME/.zprofile .dotfiles/zsh/.zprofile
-@verify_symlink $HOME/.zshrc .dotfiles/zsh/.zshrc
-@verify_symlink $HOME/.config/zsh .dotfiles/.config/zsh
-@verify_symlink $HOME/.wgetrc .dotfiles/wget/.wgetrc
-@verify_symlink $HOME/.tmux.conf .dotfiles/tmux/.tmux.conf
-@verify_symlink $HOME/.config/nvim/lua/custom .dotfiles/nvim/.config/nvim/lua/custom
-@verify_symlink $HOME/.config/iterm/settings.json .dotfiles/iterm/.config/settings.json
-@verify_symlink $HOME/.gitconfig .dotfiles/git/.gitconfig
-@verify_symlink $HOME/.gitignore .dotfiles/git/.gitignore
-@verify_symlink $HOME/.fzf.zsh .dotfiles/fzf/.fzf.zsh
-@verify_symlink $HOME/.curlrc .dotfiles/curl/.curlrc
-@verify_symlink $HOME/Brewfile .dotfiles/brew/Brewfile
+@verify_symlink ~/.hushlogin .dotfiles/zsh/.hushlogin
+@verify_symlink ~/.p10k.zsh .dotfiles/zsh/.p10k.zsh
+@verify_symlink ~/.zprofile .dotfiles/zsh/.zprofile
+@verify_symlink ~/.zshrc .dotfiles/zsh/.zshrc
+@verify_symlink ~/.config/zsh ../.dotfiles/zsh/.config/zsh
+@verify_symlink ~/.wgetrc .dotfiles/wget/.wgetrc
+@verify_symlink ~/.tmux.conf .dotfiles/tmux/.tmux.conf
+@verify_symlink ~/.config/nvim/lua/custom ../../../.dotfiles/nvim/.config/nvim/lua/custom
+@verify_symlink ~/.config/iterm ../.dotfiles/iterm/.config/iterm
+@verify_symlink ~/.gitconfig .dotfiles/git/.gitconfig
+@verify_symlink ~/.gitignore .dotfiles/git/.gitignore
+@verify_symlink ~/.fzf.zsh .dotfiles/fzf/.fzf.zsh
+@verify_symlink ~/.curlrc .dotfiles/curl/.curlrc
+@verify_symlink ~/Brewfile .dotfiles/brew/Brewfile
 
 @show_results
