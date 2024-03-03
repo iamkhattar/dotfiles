@@ -70,7 +70,7 @@ fi
 }
 
 @verify_symlink() {
-  if [ "$(readlink $1)" -ef "$2" ]; then
+  if [[ "$(readlink $1)" == "$2" ]]; then
     passed=$(( passed + 1 ))
     echo -e "${GREEN}PASS:${CLEAR} $1 is a valid symlink"
   else
@@ -136,19 +136,19 @@ fi
 @verify_on_path $HOMEBREW_PATH_DIR
 @verify_on_path $HOME/.jenv/shims
 
-@verify_symlink $HOME/.hushlogin $DOTFILES_DIR/zsh/.hushlogin
-@verify_symlink $HOME/.p10k.zsh $DOTFILES_DIR/zsh/.p10k.zsh
-@verify_symlink $HOME/.zprofile $DOTFILES_DIR/zsh/.zprofile
-@verify_symlink $HOME/.zshrc $DOTFILES_DIR/zsh/.zshrc
-@verify_symlink $HOME/.config/zsh $DOTFILES_DIR/.config/zsh
-@verify_symlink $HOME/.wgetrc $DOTFILES_DIR/wget/.wgetrc
-@verify_symlink $HOME/.tmux.conf $DOTFILES_DIR/tmux/.tmux.conf
-@verify_symlink $HOME/.config/nvim/lua/custom $DOTFILES_DIR/nvim/.config/nvim/lua/custom
-@verify_symlink $HOME/.config/iterm/settings.json $DOTFILES_DIR/iterm/.config/settings.json
-@verify_symlink $HOME/.gitconfig $DOTFILES_DIR/git/.gitconfig
-@verify_symlink $HOME/.gitignore $DOTFILES_DIR/git/.gitignore
-@verify_symlink $HOME/.fzf.zsh $DOTFILES_DIR/fzf/.fzf.zsh
-@verify_symlink $HOME/.curlrc $DOTFILES_DIR/curl/.curlrc
-@verify_symlink $HOME/Brewfile $DOTFILES_DIR/brew/Brewfile
+@verify_symlink $HOME/.hushlogin .dotfiles/zsh/.hushlogin
+@verify_symlink $HOME/.p10k.zsh .dotfiles/zsh/.p10k.zsh
+@verify_symlink $HOME/.zprofile .dotfiles/zsh/.zprofile
+@verify_symlink $HOME/.zshrc .dotfiles/zsh/.zshrc
+@verify_symlink $HOME/.config/zsh .dotfiles/.config/zsh
+@verify_symlink $HOME/.wgetrc .dotfiles/wget/.wgetrc
+@verify_symlink $HOME/.tmux.conf .dotfiles/tmux/.tmux.conf
+@verify_symlink $HOME/.config/nvim/lua/custom .dotfiles/nvim/.config/nvim/lua/custom
+@verify_symlink $HOME/.config/iterm/settings.json .dotfiles/iterm/.config/settings.json
+@verify_symlink $HOME/.gitconfig .dotfiles/git/.gitconfig
+@verify_symlink $HOME/.gitignore .dotfiles/git/.gitignore
+@verify_symlink $HOME/.fzf.zsh .dotfiles/fzf/.fzf.zsh
+@verify_symlink $HOME/.curlrc .dotfiles/curl/.curlrc
+@verify_symlink $HOME/Brewfile .dotfiles/brew/Brewfile
 
 @show_results
