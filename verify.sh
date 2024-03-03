@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -7,6 +7,12 @@ CLEAR='\033[0m'
 script_exit_code=0
 passed=0
 failed=0
+
+if [[ "$(uname)" == "Darwin" ]]; then
+  HOMEBREW_PATH_DIR="/opt/homebrew/bin"
+else
+  HOMEBREW_PATH_DIR="/home/linuxbrew/.linuxbrew/bin"
+fi
 
 @verify_binary() {
   if [ -x "$(which "$1")" ]; then
@@ -42,14 +48,13 @@ failed=0
 }
 
 @verify_environment_variable() {
-  local environment_variable=$1
-  if [ -z "${!environment_variable}" ]; then
-    failed=$(( failed + 1 ))
-    echo -e "${RED}FAIL:${CLEAR} $1 is not an invalid environment variable"
-    script_exit_code=1
-  else
+  if [[ -v $1 ]]; then
     passed=$(( passed + 1 ))
     echo -e "${GREEN}PASS:${CLEAR} $1 is a valid environment variable"
+  else
+    failed=$(( failed + 1 ))
+    echo -e "${RED}FAIL:${CLEAR} $1 is not an valid environment variable"
+    script_exit_code=1
   fi
 }
 
@@ -97,20 +102,40 @@ failed=0
 @verify_binary jq
 @verify_binary kubectl
 @verify_binary mvn
-@verify_binary nvm
 @verify_binary openssl
 @verify_binary sam
 @verify_binary terraform
 @verify_binary cert-details
 
-@verify_directory $HOME/.dotfiles
+@verify_directory $DOTFILES_DIR
+@verify_directory ~/.config/zsh
+@verify_directory ~/.config/zsh/bin
 
-@verify_file /Users/iamkhattar/projects/personal/dotfiles/verify.sh
+@verify_file ~/.zshrc
+@verify_file ~/.zprofile
+@verify_file ~/.hushlogin
+@verify_file ~/.p10k.zsh
+@verify_file ~/.config/zsh/aliases.zsh
+@verify_file ~/.config/zsh/exports.zsh
+@verify_file ~/.config/zsh/functions.zsh
+@verify_file ~/.config/zsh/path.zsh
 
+@verify_environment_variable LANG
+@verify_environment_variable LC_ALL
+@verify_environment_variable HOMEBREW_NO_ANALYTICS
+@verify_environment_variable SAM_CLI_TELEMETRY
+@verify_environment_variable DOTNET_CLI_TELEMETRY_OPTOUT
+@verify_environment_variable PYTHONIOENCODIN
+@verify_environment_variable HISTCONTROL
+@verify_environment_variable FZF_DEFAULT_OPTS
+@verify_environment_variable NVM_DIR
 @verify_environment_variable HOME
+@verify_environment_variable DOTFILES_DIR
+@verify_environment_variable FZF_DEFAULT_COMMAND
 
-@verify_on_path /opt/homebrew/bin
+@verify_on_path $HOMEBREW_PATH_DIR
+@verify_on_path $HOME/.jenv/shims
 
-@verify_symlink $HOME/.zshrc $HOME/zsh/.zshrc
+@verify_symlink $HOME/.zshrc $DOTFILES_DIR/zshrc/.zshrc
 
 @show_results
