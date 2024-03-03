@@ -1,6 +1,5 @@
-[user]
-	name = Shivam Khattar
-	email = 56852615+iamkhattar@users.noreply.github.com
+[include]
+    path = ~/.gitconfig.local
 [core]
 	autocrlf = input
 [alias]
