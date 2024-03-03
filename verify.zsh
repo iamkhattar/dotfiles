@@ -86,6 +86,18 @@ fi
   exit $script_exit_code
 }
 
+@display_banner() {
+  echo -e "${CLEAR}";
+  echo -e '\033[0;31m ____        _    __ _ _           ';
+  echo -e '\033[0;31m|  _ \  ___ | |_ / _(_) | ___  ___ ';
+  echo -e '\033[0;31m| | | |/ _ \| __| |_| | |/ _ \/ __|';
+  echo -e '\033[0;31m| |_| | (_) | |_|  _| | |  __/\__ \';
+  echo -e '\033[0;31m|____/ \___/ \__|_| |_|_|\___||___/';
+  echo -e "${CLEAR}";
+}
+
+@display_banner
+
 @verify_binary aws
 @verify_binary python3
 @verify_binary bat
