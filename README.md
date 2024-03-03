@@ -36,7 +36,7 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
 1. Clone this repository to the `~/.dotfiles` directory.
 
       ```bash
-      git clone https://github.com/iamkhattar/dotfiles.git ~/.dotfiless
+      git clone https://github.com/iamkhattar/dotfiles.git ~/.dotfiles
       ```
 
 2. Install Brew using the Brew install script:
@@ -120,7 +120,17 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
    
 ## Local Dotfiles
 
-TODO
+1. Clone the local dotfiles into the local directory:
+
+    ```bash
+    git clone <git_repostitory> ~/.dotfiles/local
+    ```
+
+2. Stow the dotfiles:
+
+    ```bash
+    cd $HOME/.dotfiles && stow local
+    ```
 
 ## Verification
 

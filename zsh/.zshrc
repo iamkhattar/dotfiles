@@ -20,6 +20,10 @@ function prepend-path() {
   [ -d "$1" ] && export PATH="$1:$PATH"
 }
 
+function append-path() {
+  [ -d "$1" ] && export PATH="$PATH:$1"
+}
+
 # Load all global dotfiles
 for DOTFILE in ~/.config/zsh/*.zsh; do
 	[ -r "$DOTFILE" ] && [ -f "$DOTFILE" ] && source "$DOTFILE";
@@ -27,7 +31,7 @@ done;
 unset DOTFILE;
 
 # Load local configuration
-[ -f ~/.config/local/.zshrc ] && source ~/.config/local/.zshrc
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # Load shell completions
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
