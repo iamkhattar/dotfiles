@@ -109,7 +109,7 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
    mkdir -p $HOME/projects/work
    mkdir -p $HOME/projects/scratch
    ```
-
+   
 11. Stow Dotfiles:
 
    ```bash
