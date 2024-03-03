@@ -103,20 +103,20 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
 
 10. Create project directories:
 
-   ```bash
-   mkdir -p $HOME/projects
-   mkdir -p $HOME/projects/personal
-   mkdir -p $HOME/projects/work
-   mkdir -p $HOME/projects/scratch
-   ```
+      ```bash
+      mkdir -p $HOME/projects
+      mkdir -p $HOME/projects/personal
+      mkdir -p $HOME/projects/work
+      mkdir -p $HOME/projects/scratch
+      ```
    
 11. Stow Dotfiles:
 
-   ```bash
-   rm -rf ~/.zshrc
-   rm -rf ~/.zprofile
-   cd $HOME/.dotfiles && stow */
-   ```
+      ```bash
+      rm -rf ~/.zshrc
+      rm -rf ~/.zprofile
+      cd $HOME/.dotfiles && stow */
+      ```
    
 ## Local Dotfiles
 
