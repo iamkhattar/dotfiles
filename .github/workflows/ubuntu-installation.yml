@@ -16,9 +16,8 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: homebrew/brew:latest
-          options: -v ${{ github.workspace }}://home/linuxbrew
-          shell: bash
+          options: -v ${{ github.workspace }}:/home/linuxbrew/.dotfiles
           run: |
             brew install zsh
-            rm -rf $HOME/.gitconfig && sudo chmod +x install.sh && ./install.sh
-            chmod +x verify.zsh && sudo zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
+            sudo chmod +x ~/.dotfiles/install.sh && ~/.dotfiles/install.sh
+            sudo chmod +x ~/.dotfiles/verify.zsh && zsh -c "source ~/.zshrc && ~/.dotfiles/verify.zsh"
