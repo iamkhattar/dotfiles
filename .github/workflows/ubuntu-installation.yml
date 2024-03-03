@@ -19,6 +19,8 @@ jobs:
           options: -v ${{ github.workspace }}://home/linuxbrew
           shell: bash
           run: |
+            ls -lrt
+            pwd
             brew install zsh
             rm -rf $HOME/.gitconfig && chmod +x install.sh && ./install.sh
             chmod +x verify.zsh && zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
