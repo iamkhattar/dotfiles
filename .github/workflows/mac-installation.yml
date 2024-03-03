@@ -13,13 +13,14 @@ jobs:
       - name: Clean up installed software
         run: |
           brew uninstall --ignore-dependencies --force $(brew list --formula)
-          # brew uninstall --cask --force $(brew list --cask)
           brew uninstall --cask --force firefox google-chrome
           brew cleanup --prune-prefix
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+          rm -rf ~/.oh-my-zsh
+          rm -rf ~/powerlevel10k
       - name: Clone this repository
         uses: actions/checkout@v3
       - name: Install using Install Script
-        run: chmod +x install.sh && ./install.sh
+        run: rm -rf $HOME/.gitconfig && chmod +x install.sh && ./install.sh
       - name: Verify using Verify Script
         run: chmod +x verify.zsh && zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
