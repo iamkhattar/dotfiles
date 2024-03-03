@@ -97,9 +97,9 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
    
 9. Configure `jenv`:
 
-   ```bash
-   jenv enable-plugin export
-   ```
+      ```bash
+      jenv enable-plugin export
+      ```
 
 10. Create project directories:
 
