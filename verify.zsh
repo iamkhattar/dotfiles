@@ -125,7 +125,7 @@ fi
 @verify_environment_variable HOMEBREW_NO_ANALYTICS
 @verify_environment_variable SAM_CLI_TELEMETRY
 @verify_environment_variable DOTNET_CLI_TELEMETRY_OPTOUT
-@verify_environment_variable PYTHONIOENCODIN
+@verify_environment_variable PYTHONIOENCODING
 @verify_environment_variable HISTCONTROL
 @verify_environment_variable FZF_DEFAULT_OPTS
 @verify_environment_variable NVM_DIR
@@ -136,6 +136,19 @@ fi
 @verify_on_path $HOMEBREW_PATH_DIR
 @verify_on_path $HOME/.jenv/shims
 
-@verify_symlink $HOME/.zshrc $DOTFILES_DIR/zshrc/.zshrc
+@verify_symlink $HOME/.hushlogin $DOTFILES_DIR/zsh/.hushlogin
+@verify_symlink $HOME/.p10k.zsh $DOTFILES_DIR/zsh/.p10k.zsh
+@verify_symlink $HOME/.zprofile $DOTFILES_DIR/zsh/.zprofile
+@verify_symlink $HOME/.zshrc $DOTFILES_DIR/zsh/.zshrc
+@verify_symlink $HOME/.config/zsh $DOTFILES_DIR/.config/zsh
+@verify_symlink $HOME/.wgetrc $DOTFILES_DIR/wget/.wgetrc
+@verify_symlink $HOME/.tmux.conf $DOTFILES_DIR/tmux/.tmux.conf
+@verify_symlink $HOME/.config/nvim/lua/custom $DOTFILES_DIR/nvim/.config/nvim/lua/custom
+@verify_symlink $HOME/.config/iterm/settings.json $DOTFILES_DIR/iterm/.config/settings.json
+@verify_symlink $HOME/.gitconfig $DOTFILES_DIR/git/.gitconfig
+@verify_symlink $HOME/.gitignore $DOTFILES_DIR/git/.gitignore
+@verify_symlink $HOME/.fzf.zsh $DOTFILES_DIR/fzf/.fzf.zsh
+@verify_symlink $HOME/.curlrc $DOTFILES_DIR/curl/.curlrc
+@verify_symlink $HOME/Brewfile $DOTFILES_DIR/brew/Brewfile
 
 @show_results

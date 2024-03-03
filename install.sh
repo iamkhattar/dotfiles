@@ -76,6 +76,10 @@ function verify_installation() {
   zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
 }
 
+function setup_jenv() {
+  jenv enable-plugin export
+}
+
 function display_banner() {
   echo -e "${CLEAR}";
   echo -e '\033[0;31m ____        _    __ _ _           ';
@@ -95,6 +99,7 @@ function main() {
   install_power10k
   install_zsh_plugins
   install_nvchad
+  setup_jenv
   create_directories
   stow_dotfiles
   verify_installation
