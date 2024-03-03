@@ -146,7 +146,6 @@ fi
 @verify_symlink ~/.config/nvim/lua/custom ../../../.dotfiles/nvim/.config/nvim/lua/custom
 @verify_symlink ~/.config/iterm ../.dotfiles/iterm/.config/iterm
 @verify_symlink ~/.gitconfig .dotfiles/git/.gitconfig
-@verify_symlink ~/.gitignore .dotfiles/git/.gitignore
 @verify_symlink ~/.fzf.zsh .dotfiles/fzf/.fzf.zsh
 @verify_symlink ~/.curlrc .dotfiles/curl/.curlrc
 @verify_symlink ~/Brewfile .dotfiles/brew/Brewfile
