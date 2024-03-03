@@ -35,65 +35,65 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/iamkhattar/dotfiles/main/
 
 1. Clone this repository to the `~/.dotfiles` directory.
 
-    ```bash
-    git clone https://github.com/iamkhattar/dotfiles.git ~/.dotfiless
-    ```
+      ```bash
+      git clone https://github.com/iamkhattar/dotfiles.git ~/.dotfiless
+      ```
 
 2. Install Brew using the Brew install script:
 
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
+      ```bash
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      ```
    
 3. Configure Brew for the current shell session:
 
-   On Mac:
+      On Mac:
    
-   ```bash
-   eval "$(/opt/homebrew/bin/brew shellenv)"
-   ```
+      ```bash
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+      ```
    
-   On Linux:
+      On Linux:
    
-   ```bash
-   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-   ```
+      ```bash
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      ```
 
 4. Install dependencies using the `Brewfile`:
 
-   ```bash
-   brew analytics off
-   brew update
-   brew tap homebrew/bundle
-   brew bundle install --file=$HOME/.dotfiles/brew/Brewfile
-   brew cleanup
-   ```
+      ```bash
+      brew analytics off
+      brew update
+      brew tap homebrew/bundle
+      brew bundle install --file=$HOME/.dotfiles/brew/Brewfile
+      brew cleanup
+      ```
 
 5. Install `Oh My Zsh`:
 
-   ```bash
-   /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-   ```
+      ```bash
+      /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+      ```
    
 6. Install `Powerlevel10K`:
 
-   ```bash
-   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-   ```
+      ```bash
+      git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+      ```
    
 7. Install Zsh Plugins:
 
-   ```bash
-   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-   git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-   ```
+      ```bash
+      git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+      git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+      ```
 
 8. Install `Nvchad`:
 
-   ```bash
-   git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-   ```
+      ```bash
+      git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+      ```
    
 9. Configure `jenv`:
 
