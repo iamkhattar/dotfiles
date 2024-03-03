@@ -70,12 +70,6 @@ function stow_dotfiles() {
   cd $HOME/.dotfiles && stow */
 }
 
-function verify_installation() {
-  echo -e "${GREEN}INFO:${CLEAR} Verifying installation"
-  chmod +x $HOME/.dotfiles/verify.zsh
-  zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
-}
-
 function setup_jenv() {
   jenv enable-plugin export
 }
@@ -102,7 +96,6 @@ function main() {
   setup_jenv
   create_directories
   stow_dotfiles
-  verify_installation
 }
 
 main "$@"
