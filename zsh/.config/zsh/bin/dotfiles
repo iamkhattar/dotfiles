@@ -12,7 +12,7 @@ function __display_banner() {
 
 function usage() {
   __display_banner
-  echo "USAGE: dot <subcommand>"
+  echo "USAGE: dotfiles <subcommand>"
   echo ""
   echo "Commands:"
   echo "  update    Pull latest dotfiles and stow."
