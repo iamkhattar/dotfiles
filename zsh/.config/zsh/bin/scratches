@@ -19,7 +19,7 @@ function create_scratch() {
 function purge_scratch() {
   current_directory=$(pwd)
   if [[ ${current_directory} == $HOME/projects/scratch/* ]]; then
-    cd $HOME/projects/scratch|| exit
+    cd $HOME/projects/scratch || exit
     rm -rf "${current_directory}"
     exec zsh
   fi
