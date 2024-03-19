@@ -22,24 +22,6 @@ function load-env() {
     exit 1
   fi
 
-  # Read the .env file line by line
-  while IFS= read -r line; do
-    # Skip comments and empty lines
-    if [[ "$line" =~ ^\s*#.*$ || -z "$line" ]]; then
-      continue
-    fi
-
-    # Split the line into key and value
-    key=$(echo "$line" | cut -d '=' -f 1)
-    value=$(echo "$line" | cut -d '=' -f 2-)
-
-    # Remove single quotes, double quotes, and leading/trailing spaces from the value
-    value=$(echo "$value" | sed -e "s/^'//" -e "s/'$//" -e 's/^"//' -e 's/"$//' -e 's/^[ \t]*//;s/[ \t]*$//')
-
-    # Export the key and value as environment variables
-    export "$key=$value"
-    done < "$filePath"
-
   source $filePath
   echo "Loaded $filePath to Shell"
 }
