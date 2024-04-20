@@ -61,7 +61,3 @@ function scratches() {
   __scratches_help
   return 1
 }
-
-#function purge_scratch() {
-
-#}
