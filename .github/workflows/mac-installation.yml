@@ -1,6 +1,7 @@
 name: Macbook Dotfiles Installation
 
 on:
+  pull_request:
   push:
     branches:
       - main
