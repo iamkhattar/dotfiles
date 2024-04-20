@@ -25,3 +25,39 @@ function load-env() {
   source $filePath
   echo "Loaded $filePath to Shell"
 }
+
+function __scratches_help() {
+  echo "USAGE: scratches <subcommand>"
+  echo ""
+  echo "Commands:"
+  echo "  help      Show help."
+  echo "  create    Create a scratch."
+  echo "  purge     Purge current scratch."
+}
+
+function scratches() {
+  if [ "$#" -ne 1 ]; then
+    __scratches_help
+    return 1
+  fi
+  if [[ "$1" == "help" ]]; then
+    __scratches_help
+    return 0
+  fi
+  if [[ "$1" == "create" ]]; then
+    scratch_name=$(awk "NR==$RANDOM {print}" /usr/share/dict/words | awk '{print tolower($0)}')
+    mkdir -p "$HOME/projects/scratch/${scratch_name}"
+    cd $HOME/projects/scratch/${scratch_name}
+    return 0
+  fi
+  if [[ "$1" == "purge" ]]; then
+    current_directory=$(pwd)
+    if [[ ${current_directory} == $HOME/projects/scratch/* ]]; then
+      cd $HOME/projects/scratch
+      rm -rf ${current_directory}
+    fi
+    return 0
+  fi
+  __scratches_help
+  return 1
+}
