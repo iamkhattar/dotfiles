@@ -2,12 +2,18 @@
 
 CURRENT_OS=$(uname)
 
+RED='\033[0;31m'
 GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+
 CLEAR='\033[0m'
 
+#MYDOTFILES=$HOME/.dotfiles
+MYDOTFILES=$(pwd)
+
 function clone_dotfiles() {
-  echo -e "${GREEN}INFO:${CLEAR} Cloning dotfiles to $HOME/.dotfiles"
-  git clone https://github.com/iamkhattar/dotfiles.git $HOME/.dotfiles
+  echo -e "${GREEN}INFO:${CLEAR} Cloning dotfiles to $MYDOTFILES"
+  git clone https://github.com/pmgledhill102/dotfiles.git $MYDOTFILES
 }
 
 function install_brew() {
@@ -22,12 +28,12 @@ function install_brew() {
   fi
 }
 
-function install_dependencies() {
-  echo -e "${GREEN}INFO:${CLEAR} Installing dependencies from $HOME/.dotfiles/brew/Brewfile"
+function install_dependencies_using_brew() {
+  echo -e "${GREEN}INFO:${CLEAR} Installing dependencies from $MYDOTFILES/brew/Brewfile"
   brew analytics off
   brew update
   brew tap homebrew/bundle
-  brew bundle install --file=$HOME/.dotfiles/brew/Brewfile
+  brew bundle install --file=$MYDOTFILES/brew/Brewfile
   brew cleanup
 }
 
@@ -67,35 +73,73 @@ function stow_dotfiles() {
   echo -e "${GREEN}INFO:${CLEAR} Stowing dotfiles"
   rm -rf ~/.zshrc
   rm -rf ~/.zprofile
-  cd $HOME/.dotfiles && stow */
+  cd $MYDOTFILES && stow */
 }
 
 function setup_jenv() {
   jenv enable-plugin export
 }
 
+function update_apt() {
+  sudo apt-get update
+  sudo apt-get upgrade -y
+}
+
+function install_dependencies_using_apt() {
+  for i in $(cat $MYDOTFILES/apt/pkglist); do sudo apt-get install $i; done
+}
+
 function display_banner() {
   echo -e "${CLEAR}";
-  echo -e '\033[0;31m ____        _    __ _ _           ';
-  echo -e '\033[0;31m|  _ \  ___ | |_ / _(_) | ___  ___ ';
-  echo -e '\033[0;31m| | | |/ _ \| __| |_| | |/ _ \/ __|';
-  echo -e '\033[0;31m| |_| | (_) | |_|  _| | |  __/\__ \';
-  echo -e '\033[0;31m|____/ \___/ \__|_| |_|_|\___||___/';
+  echo -e "$RED ____        _    __ _ _           ";
+  echo -e "$RED|  _ \  ___ | |_ / _(_) | ___  ___ ";
+  echo -e "$RED| | | |/ _ \| __| |_| | |/ _ \/ __|";
+  echo -e "$RED| |_| | (_) | |_|  _| | |  __/\__ \\";
+  echo -e "$RED|____/ \\___/ \__|_| |_|_|\\___||___/";
+  echo -e "$BLUE ----- $1 -----";
   echo -e "${CLEAR}";
 }
 
-function main() {
-  display_banner
-  clone_dotfiles
-  install_brew
-  install_dependencies
-  install_oh_my_zsh
-  install_power10k
-  install_zsh_plugins
-  install_nvchad
-  setup_jenv
-  create_directories
-  stow_dotfiles
+function sudo_check() {
+  if [[ $EUID -ne 0 ]]; then
+    echo -e "$RED This script must be run as root $CLEAR"
+    echo -e "$CLEAR";
+    sudo "$0" "$@"
+    exit 1
+  fi
 }
 
-main "$@"
+function main_macos() {
+  display_banner "MacOS Edition"
+  clone_dotfiles
+  #install_brew
+  #install_dependencies_using_brew
+  #install_oh_my_zsh
+  #install_power10k
+  #install_zsh_plugins
+  #install_nvchad
+  #setup_jenv
+  #create_directories
+  #stow_dotfiles
+}
+
+function main_ubuntu() {
+  sudo_check
+  display_banner "Ubuntu Edition"
+  clone_dotfiles
+  update_apt
+  install_dependencies_using_apt
+  #install_oh_my_zsh
+  #install_power10k
+  #install_zsh_plugins
+  #install_nvchad
+  #setup_jenv
+  #create_directories
+  #stow_dotfiles
+}
+
+if [ "${CURRENT_OS}" == "Darwin" ]; then
+  main_macos "$@"
+else
+  main_ubuntu "$@"
+fi
