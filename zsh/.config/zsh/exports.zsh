@@ -21,7 +21,7 @@ export PYTHONIOENCODING='UTF-8'
 export HISTCONTROL='ignoreboth'
 
 # Project Directory
-export PROJECT_DIR=$HOME/projects
+export PROJECT_DIR=$HOME/dev
 
 # Fzf Opts
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
