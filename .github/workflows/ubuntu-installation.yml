@@ -8,17 +8,20 @@ on:
 
 jobs:
   ubuntu-install:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - name: Clone this repository
         uses: actions/checkout@v4
-      - name: Install dotfiles and verify
-        uses: addnab/docker-run-action@v3
-        with:
-          image: homebrew/brew:latest
-          options: -v ${{ github.workspace }}:/home/linuxbrew/.dotfiles
-          run: |
-            brew install zsh
-            sudo chmod +x ~/.dotfiles/install.sh && ~/.dotfiles/install.sh
-            sudo chmod +x ~/.dotfiles/verify.zsh && zsh -c "source ~/.zshrc && ~/.dotfiles/verify.zsh"
+
+      - name: Install dotfiles
+        run: ./install.sh
+
+      # - name: Verifies dotfiles (ZSH)
+      #   run: source ~/.zshrc && ./verify.zsh
+      #   shell: /bin/zsh {0}
+      #   env:
+      #     ZSH_DISABLE_COMPFIX: true
+
+      - name: Verifies dotfiles (BASH)
+        run: source ~/.bashrc && ./verify.zsh

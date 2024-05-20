@@ -3,3 +3,4 @@ unzip
 wget
 zsh
 stow
+jq

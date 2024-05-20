@@ -8,9 +8,28 @@ BLUE='\033[0;34m'
 
 CLEAR='\033[0m'
 
+set -e
+
+function display_banner() {
+  echo -e "${CLEAR}";
+  echo -e "$RED ____        _    __ _ _           ";
+  echo -e "$RED|  _ \  ___ | |_ / _(_) | ___  ___ ";
+  echo -e "$RED| | | |/ _ \| __| |_| | |/ _ \/ __|";
+  echo -e "$RED| |_| | (_) | |_|  _| | |  __/\__ \\";
+  echo -e "$RED|____/ \\___/ \__|_| |_|_|\\___||___/";
+  echo -e "$RED ";
+  echo -e "$BLUE     ----- $1 -----";
+  echo -e "${CLEAR}";
+}
+
 function clone_dotfiles() {
-  echo -e "${GREEN}INFO:${CLEAR} Cloning dotfiles to $HOME/.dotfiles"
-  git clone https://github.com/pmgledhill102/dotfiles.git $HOME/.dotfiles
+  if [ ! -d $HOME/.dotfiles ]; then
+    echo -e "${GREEN}INFO:${CLEAR} Cloning dotfiles to $HOME/.dotfiles";
+    git clone https://github.com/pmgledhill102/dotfiles.git $HOME/.dotfiles;
+  else
+    echo -e "${GREEN}INFO:${CLEAR} Dotfiles already cloned. Pulling latest changes";
+    git -C $HOME/.dotfiles pull > /dev/null;
+  fi
 }
 
 function install_brew() {
@@ -34,32 +53,15 @@ function install_dependencies_using_brew() {
   brew cleanup
 }
 
-function install_oh_my_zsh() {
-  if test ! $(which omz); then
-    echo -e "${GREEN}INFO:${CLEAR} Oh My Zsh not found, installing using install script"
-    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-  fi
-}
-
-function install_power10k() {
-  echo -e "${GREEN}INFO:${CLEAR} Installing powerlevel10k to ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-}
-
-function install_zsh_plugins() {
-  echo -e "${GREEN}INFO:${CLEAR} Installing ZSH plugins to ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins"
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-}
-
-function install_nvchad() {
-  echo -e "${GREEN}INFO:${CLEAR} Installing NvChad to ~/.config/nvim"
-  git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+function install_oh_my_posh() {
+  # Install to ~/bin folder
+  mkdir -p $HOME/bin
+  echo -e "${GREEN}INFO:${CLEAR} Installing Oh My Posh, installing using install script"
+  curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
 }
 
 function create_directories() {
-  echo -e "${GREEN}INFO:${CLEAR} Creating git directories in $HOME/projects"
+  echo -e "${GREEN}INFO:${CLEAR} Creating directories in $HOME/dev"
   mkdir -p $HOME/dev
   mkdir -p $HOME/dev/personal
   mkdir -p $HOME/dev/work
@@ -70,71 +72,74 @@ function stow_dotfiles() {
   echo -e "${GREEN}INFO:${CLEAR} Stowing dotfiles"
   rm -rf ~/.zshrc
   rm -rf ~/.zprofile
-  cd $HOME/.dotfiles && stow */
+  rm -rf ~/.bashrc
+  cd $HOME/.dotfiles
+  stow iterm
+  stow bash
 }
 
-function setup_jenv() {
-  jenv enable-plugin export
-}
+function install_apt_packages() {
+  echo -e "${GREEN}INFO:${CLEAR} Checking required packages"
 
-function update_apt() {
-  sudo apt-get update
-  sudo apt-get upgrade -y
-}
+  # Check to see if packages are installed
+  INSTALLS_REQUIRED=0
+  for i in $(cat $HOME/.dotfiles/apt/pkglist);
+    do if dpkg -s $i &>dev/null; then echo -e " $GREEN - $i is installed $CLEAR";
+    else echo -e "$RED - $i is not installed $CLEAR"; INSTALLS_REQUIRED=1; fi;
+  done
 
-function install_dependencies_using_apt() {
-  for i in $(cat $HOME/.dotfiles/apt/pkglist); do echo -e "$GREEN - Installing $i $CLEAR" && sudo apt-get install $i; done
-}
-
-function display_banner() {
-  echo -e "${CLEAR}";
-  echo -e "$RED ____        _    __ _ _           ";
-  echo -e "$RED|  _ \  ___ | |_ / _(_) | ___  ___ ";
-  echo -e "$RED| | | |/ _ \| __| |_| | |/ _ \/ __|";
-  echo -e "$RED| |_| | (_) | |_|  _| | |  __/\__ \\";
-  echo -e "$RED|____/ \\___/ \__|_| |_|_|\\___||___/";
-  echo -e "$RED ";
-  echo -e "$BLUE     ----- $1 -----";
-  echo -e "${CLEAR}";
-}
-
-function sudo_check() {
-  if [[ $EUID -ne 0 ]]; then
-    echo -e "$RED (this script must be run as root on Ubuntu) $CLEAR"
-    sudo "$0" "$@"
-    exit 1
+  # Exit early if they are
+  if [[ "$INSTALLS_REQUIRED" -eq 0 ]]; then
+    echo -e "${GREEN}INFO:${CLEAR} Packages already installed"
+    return
   fi
+
+  # Elevate prvivileges if required
+  if [[ $EUID -ne 0 && $INSTALLS_REQUIRED -eq 1 ]]; then
+    echo -e "$RED (this script must be run as root to install packages) $CLEAR"
+    sudo echo "== Elevated =="
+  fi
+
+  # Update and upgrade APT packages
+  echo -e "${GREEN}INFO:${CLEAR} Updating APT package list"
+  sudo apt-get update > /dev/null
+
+  # Upgrade all packages
+  echo -e "${GREEN}INFO:${CLEAR} Upgrading all APT packages"
+  sudo apt-get upgrade -y 1 > /dev/null
+
+  # Install required packages
+  echo -e "${GREEN}INFO:${CLEAR} Installing required APT packages"
+  for i in $(cat $HOME/.dotfiles/apt/pkglist);
+    do echo -e "$GREEN - Installing $i $CLEAR"
+    sudo apt-get install $i -y > /dev/null
+  done
+}
+
+function install_nanorc_highlighting() {
+  echo -e "${GREEN}INFO:${CLEAR} Installing Nano syntax highlighting"
+
+  wget -q -O /tmp/nanorc.sh https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh
+  sed -i 's/wget -O/wget -q -O/g' /tmp/nanorc.sh
+  /bin/bash -c "$(cat /tmp/nanorc.sh)" > /dev/null
 }
 
 function main_macos() {
   display_banner "MacOS Edition"
   clone_dotfiles
-
-  ### DISABLED UNTIL I TEST ON MAC
-
-  #install_brew
-  #install_dependencies_using_brew
-  #install_oh_my_zsh
-  #install_power10k
-  #install_zsh_plugins
-  #install_nvchad
-  #setup_jenv
-  #create_directories
-  #stow_dotfiles
+  create_directories
+  stow_dotfiles
+  #install_oh_my_posh
+  install_nanorc_highlighting
 }
 
 function main_ubuntu() {
-  sudo_check
   display_banner "Ubuntu Edition"
   clone_dotfiles
-  update_apt
-  install_dependencies_using_apt
-  install_oh_my_zsh
-  install_power10k
-  install_zsh_plugins
-  install_nvchad
-  setup_jenv
   create_directories
+  install_apt_packages
+  install_oh_my_posh
+  install_nanorc_highlighting
   stow_dotfiles
 }
 

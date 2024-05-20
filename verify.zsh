@@ -4,6 +4,8 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 CLEAR='\033[0m'
 
+CURRENT_OS=$(uname)
+
 script_exit_code=0
 passed=0
 failed=0
@@ -96,70 +98,95 @@ fi
   echo -e "${CLEAR}";
 }
 
+@verify_macos () {
+  @verify_binary aws
+  @verify_binary python3
+  @verify_binary bat
+  @verify_binary az
+  @verify_binary fzf
+  @verify_binary git
+  @verify_binary go
+  @verify_binary task
+  @verify_binary gradle
+  @verify_binary gum
+  @verify_binary java
+  @verify_binary helm
+  @verify_binary jenv
+  @verify_binary jq
+  @verify_binary kubectl
+  @verify_binary mvn
+  @verify_binary openssl
+  @verify_binary sam
+  @verify_binary terraform
+  @verify_binary cert-details
+
+  @verify_directory ~/.dotfiles
+  @verify_directory ~/.config/zsh
+  @verify_directory ~/.config/zsh/bin
+
+  @verify_file ~/.zshrc
+  @verify_file ~/.zprofile
+  @verify_file ~/.hushlogin
+  @verify_file ~/.p10k.zsh
+  @verify_file ~/.config/zsh/aliases.zsh
+  @verify_file ~/.config/zsh/exports.zsh
+  @verify_file ~/.config/zsh/functions.zsh
+  @verify_file ~/.config/zsh/path.zsh
+
+  @verify_environment_variable LANG
+  @verify_environment_variable LC_ALL
+  @verify_environment_variable HOMEBREW_NO_ANALYTICS
+  @verify_environment_variable SAM_CLI_TELEMETRY
+  @verify_environment_variable DOTNET_CLI_TELEMETRY_OPTOUT
+  @verify_environment_variable PYTHONIOENCODING
+  @verify_environment_variable HISTCONTROL
+  @verify_environment_variable FZF_DEFAULT_OPTS
+  @verify_environment_variable NVM_DIR
+  @verify_environment_variable HOME
+  @verify_environment_variable DOTFILES_DIR
+
+  @verify_on_path $HOMEBREW_PATH_DIR
+
+  @verify_symlink ~/.hushlogin .dotfiles/zsh/.hushlogin
+  @verify_symlink ~/.p10k.zsh .dotfiles/zsh/.p10k.zsh
+  @verify_symlink ~/.zprofile .dotfiles/zsh/.zprofile
+  @verify_symlink ~/.zshrc .dotfiles/zsh/.zshrc
+  @verify_symlink ~/.config/zsh ../.dotfiles/zsh/.config/zsh
+  @verify_symlink ~/.wgetrc .dotfiles/wget/.wgetrc
+  @verify_symlink ~/.tmux.conf .dotfiles/tmux/.tmux.conf
+  @verify_symlink ~/.config/nvim/lua/custom ../../../.dotfiles/nvim/.config/nvim/lua/custom
+  @verify_symlink ~/.config/iterm ../.dotfiles/iterm/.config/iterm
+  @verify_symlink ~/.gitconfig .dotfiles/git/.gitconfig
+  @verify_symlink ~/.fzf.zsh .dotfiles/fzf/.fzf.zsh
+  @verify_symlink ~/.curlrc .dotfiles/curl/.curlrc
+  @verify_symlink ~/Brewfile .dotfiles/brew/Brewfile
+}
+
+@verify_ubuntu () {
+  @verify_binary git
+  @verify_binary jq
+  @verify_binary openssl
+
+  @verify_directory ~/.dotfiles
+
+  @verify_file ~/.bashrc
+
+  #@verify_environment_variable LANG
+  #@verify_environment_variable LC_ALL
+  @verify_environment_variable PYTHONIOENCODING
+  @verify_environment_variable HISTCONTROL
+  @verify_environment_variable HOME
+  @verify_environment_variable DOTFILES_DIR
+
+  @verify_symlink ~/.config/iterm ../.dotfiles/iterm/.config/iterm
+}
+
 @display_banner
 
-@verify_binary aws
-@verify_binary python3
-@verify_binary bat
-@verify_binary az
-@verify_binary fzf
-@verify_binary git
-@verify_binary go
-@verify_binary task
-@verify_binary gradle
-@verify_binary gum
-@verify_binary java
-@verify_binary helm
-@verify_binary jenv
-@verify_binary jq
-@verify_binary kubectl
-@verify_binary mvn
-@verify_binary openssl
-@verify_binary sam
-@verify_binary terraform
-@verify_binary cert-details
-
-@verify_directory ~/.dotfiles
-@verify_directory ~/.config/zsh
-@verify_directory ~/.config/zsh/bin
-
-@verify_file ~/.zshrc
-@verify_file ~/.zprofile
-@verify_file ~/.hushlogin
-@verify_file ~/.p10k.zsh
-@verify_file ~/.config/zsh/aliases.zsh
-@verify_file ~/.config/zsh/exports.zsh
-@verify_file ~/.config/zsh/functions.zsh
-@verify_file ~/.config/zsh/path.zsh
-
-@verify_environment_variable LANG
-@verify_environment_variable LC_ALL
-@verify_environment_variable HOMEBREW_NO_ANALYTICS
-@verify_environment_variable SAM_CLI_TELEMETRY
-@verify_environment_variable DOTNET_CLI_TELEMETRY_OPTOUT
-@verify_environment_variable PYTHONIOENCODING
-@verify_environment_variable HISTCONTROL
-@verify_environment_variable FZF_DEFAULT_OPTS
-@verify_environment_variable NVM_DIR
-@verify_environment_variable HOME
-@verify_environment_variable DOTFILES_DIR
-@verify_environment_variable FZF_DEFAULT_COMMAND
-
-@verify_on_path $HOMEBREW_PATH_DIR
-@verify_on_path ~/.jenv/shims
-
-@verify_symlink ~/.hushlogin .dotfiles/zsh/.hushlogin
-@verify_symlink ~/.p10k.zsh .dotfiles/zsh/.p10k.zsh
-@verify_symlink ~/.zprofile .dotfiles/zsh/.zprofile
-@verify_symlink ~/.zshrc .dotfiles/zsh/.zshrc
-@verify_symlink ~/.config/zsh ../.dotfiles/zsh/.config/zsh
-@verify_symlink ~/.wgetrc .dotfiles/wget/.wgetrc
-@verify_symlink ~/.tmux.conf .dotfiles/tmux/.tmux.conf
-@verify_symlink ~/.config/nvim/lua/custom ../../../.dotfiles/nvim/.config/nvim/lua/custom
-@verify_symlink ~/.config/iterm ../.dotfiles/iterm/.config/iterm
-@verify_symlink ~/.gitconfig .dotfiles/git/.gitconfig
-@verify_symlink ~/.fzf.zsh .dotfiles/fzf/.fzf.zsh
-@verify_symlink ~/.curlrc .dotfiles/curl/.curlrc
-@verify_symlink ~/Brewfile .dotfiles/brew/Brewfile
+if [[ "${CURRENT_OS}" == "Darwin" ]]; then
+  @verify_macos "$@"
+else
+  @verify_ubuntu "$@"
+fi
 
 @show_results
