@@ -1,10 +1,12 @@
 #!/usr/bin/env zsh
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-CLEAR='\033[0m'
-
 CURRENT_OS=$(uname)
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+
+CLEAR='\033[0m'
 
 script_exit_code=0
 passed=0
