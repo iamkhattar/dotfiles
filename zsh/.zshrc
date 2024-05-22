@@ -13,7 +13,7 @@ compinit
 # End of lines added by compinstall
 
 # Load all global dotfiles
-for DOTFILE in ~/.config/zsh/*.zsh; do
-	[ -r "$DOTFILE" ] && [ -f "$DOTFILE" ] && source "$DOTFILE";
+for DOTFILE in $(ls ~/.config/zsh/*.zsh | sort); do
+	[ -r "~/.config/zsh/$DOTFILE" ] && [ -f "~/.config/zsh/$DOTFILE" ] && source "~/.config/zsh/$DOTFILE";
 done;
 unset DOTFILE;
