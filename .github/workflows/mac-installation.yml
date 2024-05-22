@@ -25,4 +25,4 @@ jobs:
       - name: Install using Install Script
         run: rm -rf $HOME/.gitconfig && chmod +x install.sh && ./install.sh
       - name: Verify using Verify Script
-        run: chmod +x verify.zsh && zsh -c "source ~/.zshrc && $HOME/.dotfiles/verify.zsh"
+        run: source ~/.zshrc && ./verify.sh
