@@ -1,5 +1,6 @@
 zip
 unzip
 wget
+zsh
 stow
 jq

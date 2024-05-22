@@ -39,5 +39,6 @@ jobs:
           final_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
           echo "Final disk usage: $final_usage bytes"
           initial_usage=${{ env.initial_usage }}
+          usage_change_bytes=$((final_usage - initial_usage))
           usage_change_mb=$(echo "scale=2; $usage_change_bytes / (1024 * 1024)" | bc)
-          echo "Disk usage change: $usage_change bytes"
+          echo "Disk usage change: $usage_change_mb MB"
