@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Get initial disk usage
         id: get_initial_usage
-        run: ./tests/get_initial_usage.sh
+        run: ./tests/get_initial_disk_usage.sh
 
       - name: Clone this repository
         uses: actions/checkout@v4
