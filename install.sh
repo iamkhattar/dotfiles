@@ -121,7 +121,7 @@ function install_nanorc_highlighting() {
   echo -e "${GREEN}INFO:${CLEAR} Installing Nano syntax highlighting"
 
   wget -q -O /tmp/nanorc.sh https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh
-  sed -i 's/wget -O/wget -q -O/g' /tmp/nanorc.sh
+  sed -i -e 's/wget -O/wget -q -O/g' /tmp/nanorc.sh
   /bin/bash -c "$(cat /tmp/nanorc.sh)" > /dev/null
 }
 
