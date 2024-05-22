@@ -17,7 +17,7 @@ jobs:
         run: |
           initial_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
           echo "Initial disk usage: $initial_usage bytes"
-          echo "::set-output name=initial_usage::$initial_usage"
+          echo "initial_usage=$initial_usage" >> $GITHUB_ENV
 
       - name: Clone this repository
         uses: actions/checkout@v4
@@ -39,11 +39,11 @@ jobs:
         run: |
           final_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
           echo "Final disk usage: $final_usage bytes"
-          echo "::set-output name=final_usage::$final_usage"
+          echo "final_usage=$final_usage" >> $GITHUB_ENV
 
       - name: Calculate disk usage change
         run: |
-          initial_usage=${{ steps.get_initial_usage.outputs.initial_usage }}
-          final_usage=${{ steps.get_final_usage.outputs.final_usage }}
+          initial_usage=${{ env.initial_usage }}
+          final_usage=${{ env.final_usage }}
           usage_change=$((final_usage - initial_usage))
           echo "Disk usage change: $usage_change bytes"
