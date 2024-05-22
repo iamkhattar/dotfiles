@@ -129,9 +129,10 @@ function main_macos() {
   display_banner "MacOS Edition"
   clone_dotfiles
   create_directories
-  stow_dotfiles
-  #install_oh_my_posh
+  install_brew
+  install_dependencies_using_brew
   install_nanorc_highlighting
+  stow_dotfiles
 }
 
 function main_ubuntu() {
