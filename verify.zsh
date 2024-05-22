@@ -174,7 +174,7 @@ fi
   @verify_binary zsh
   @verify_binary stow
 
-  @verify_binary oh-my-posh
+  #@verify_binary oh-my-posh
 
   @verify_directory ~/.dotfiles
 
