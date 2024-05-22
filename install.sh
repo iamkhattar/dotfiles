@@ -76,6 +76,7 @@ function stow_dotfiles() {
   cd $HOME/.dotfiles
   #stow iterm
   stow bash
+  stow zsh
 }
 
 function install_apt_packages() {
