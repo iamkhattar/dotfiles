@@ -79,36 +79,6 @@ function stow_dotfiles() {
   stow zsh
 }
 
-function install_git() {
-  echo -e "${GREEN}INFO:${CLEAR} Checking git installation"
-
-  if git --version &>/dev/null; then
-    echo -e " $GREEN - git is installed $CLEAR";
-    return
-  fi
-
-  # Elevate prvivileges if required
-  if [[ $EUID -ne 0 && $INSTALLS_REQUIRED -eq 1 ]]; then
-    echo -e "$RED (this script must be run as root to install packages) $CLEAR"
-    sudo echo "== Elevated =="
-  fi
-
-  # Update and APT package lists
-  echo -e "${GREEN}INFO:${CLEAR} Updating APT package list"
-  sudo apt-get update > /dev/null
-
-  # Upgrade all packages
-  echo -e "${GREEN}INFO:${CLEAR} Upgrading all APT packages"
-  sudo apt-get upgrade -y 1 > /dev/null
-
-  # Install GIT
-  echo -e "${GREEN}INFO:${CLEAR} Installing required APT packages"
-  for i in $(cat $HOME/.dotfiles/apt/pkglist);
-    do echo -e "$GREEN - Installing $i $CLEAR"
-    sudo apt-get install $i -y > /dev/null
-  done
-}
-
 function install_apt_packages() {
   echo -e "${GREEN}INFO:${CLEAR} Checking required packages"
 
@@ -131,7 +101,7 @@ function install_apt_packages() {
     sudo echo "== Elevated =="
   fi
 
-  # Update and APT package lists
+  # Update and upgrade APT packages
   echo -e "${GREEN}INFO:${CLEAR} Updating APT package list"
   sudo apt-get update > /dev/null
 
@@ -166,7 +136,6 @@ function main_macos() {
 
 function main_ubuntu() {
   display_banner "Ubuntu Edition"
-  install_git
   clone_dotfiles
   create_directories
   install_apt_packages
