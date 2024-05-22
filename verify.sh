@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 CURRENT_OS=$(uname)
 
 RED='\033[0;31m'
