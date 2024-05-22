@@ -14,7 +14,10 @@ jobs:
     steps:
       - name: Get initial disk usage
         id: get_initial_usage
-        run: ./tests/get_initial_disk_usage.sh
+        run: |
+          initial_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
+          echo "Initial disk usage: $initial_usage bytes"
+          echo "initial_usage=$initial_usage" >> $GITHUB_ENV
 
       - name: Clone this repository
         uses: actions/checkout@v4
@@ -29,7 +32,7 @@ jobs:
       #     ZSH_DISABLE_COMPFIX: true
 
       - name: Verifies dotfiles (BASH)
-        run: source ~/.bashrc && ./verify.zsh
+        run: source ~/.bashrc && ./verify.sh
 
       - name: Check disk usage
-        run: ./tests/check_disk_usage.sh
+        run: ./verify_disk_usage.sh
