@@ -4,6 +4,12 @@ for DOTFILE in $(ls ~/.config/zsh/*.zsh | sort); do
 done;
 unset DOTFILE;
 
+# If not running interactively, don't do anything more
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
