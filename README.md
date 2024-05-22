@@ -172,18 +172,11 @@ defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/dev/dotfiles/i
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 ```
 
-To do...
-
-- Add Tooltips for additional feedback (I.e. gcloud => gcp)
-- Investigate Transient Prompts (<https://ohmyposh.dev/docs/configuration/transient>)
-
 ### Lean  Focus
 
-Package Sizes:
-
-- zsh : 19.1MB
-- zip : 1.0 MB
-- jq  : 1.1 1MB
+When installed to Ubuntu servers, I want the footprint to be kept to a minimum, as I'll be
+charged for the storage. This is a major reason to avoid `homebrew`. To enforce this over time
+I've included a 100MB check into the GitHub workflow.
 
 ### Interesting Links
 
