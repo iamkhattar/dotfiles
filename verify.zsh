@@ -173,14 +173,11 @@ fi
 
   @verify_file ~/.bashrc
 
-  #@verify_environment_variable LANG
-  #@verify_environment_variable LC_ALL
   @verify_environment_variable PYTHONIOENCODING
   @verify_environment_variable HISTCONTROL
   @verify_environment_variable HOME
   @verify_environment_variable DOTFILES_DIR
 
-  @verify_symlink ~/.config/iterm ../.dotfiles/iterm/.config/iterm
 }
 
 @display_banner
