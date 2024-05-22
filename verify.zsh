@@ -168,10 +168,19 @@ fi
   @verify_binary git
   @verify_binary jq
   @verify_binary openssl
+  @verify_binary zip
+  @verify_binary unzip
+  @verify_binary wget
+  @verify_binary zsh
+  @verify_binary stow
+
+  @verify_binary oh-my-posh
 
   @verify_directory ~/.dotfiles
 
   @verify_file ~/.bashrc
+  @verify_file ~/.nanorc
+  @verify_file ~/.nano/go.nanorc
 
   @verify_environment_variable PYTHONIOENCODING
   @verify_environment_variable HISTCONTROL

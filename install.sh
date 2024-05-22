@@ -74,7 +74,7 @@ function stow_dotfiles() {
   rm -rf ~/.zprofile
   rm -rf ~/.bashrc
   cd $HOME/.dotfiles
-  stow iterm
+  #stow iterm
   stow bash
 }
 
