@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- Look at my MacOS Brewfile and update this with it
 - Which of these are mine, versus work laptop?
 - iTerm => MacOS Terminal settings
 - (think there's a fair bit on MacOS settings)

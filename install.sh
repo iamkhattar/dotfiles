@@ -74,9 +74,18 @@ function stow_dotfiles() {
   rm -rf ~/.zprofile
   rm -rf ~/.bashrc
   cd $HOME/.dotfiles
-  #stow iterm
   stow bash
   stow zsh
+}
+
+function stow_dotfiles_macos() {
+  stow_dotfiles
+
+  echo -e "${GREEN}INFO:${CLEAR} Stowing Mac Only dotfiles"
+
+  cd $HOME/.dotfiles
+  #stow iterm
+  stow brew
 }
 
 function install_apt_packages() {
@@ -132,7 +141,7 @@ function main_macos() {
   install_brew
   install_dependencies_using_brew
   install_nanorc_highlighting
-  stow_dotfiles
+  stow_dotfiles_macos
 }
 
 function main_ubuntu() {
