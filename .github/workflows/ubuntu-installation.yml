@@ -6,16 +6,18 @@ on:
     branches:
       - main
   workflow_dispatch:
-    
+
 jobs:
   ubuntu-install:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - name: Check starting disk space
+      - name: Get initial disk usage
+        id: get_initial_usage
         run: |
-          echo "Start free space: "
-          df -h -B 1
+          initial_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
+          echo "Initial disk usage: $initial_usage bytes"
+          echo "::set-output name=initial_usage::$initial_usage"
 
       - name: Clone this repository
         uses: actions/checkout@v4
@@ -32,7 +34,16 @@ jobs:
       - name: Verifies dotfiles (BASH)
         run: source ~/.bashrc && ./verify.zsh
 
-      - name: Check end disk space
-        run: | 
-          echo "End free space: "
-          df -h -B 1
+      - name: Get final disk usage
+        id: get_final_usage
+        run: |
+          final_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
+          echo "Final disk usage: $final_usage bytes"
+          echo "::set-output name=final_usage::$final_usage"
+
+      - name: Calculate disk usage change
+        run: |
+          initial_usage=${{ steps.get_initial_usage.outputs.initial_usage }}
+          final_usage=${{ steps.get_final_usage.outputs.final_usage }}
+          usage_change=$((final_usage - initial_usage))
+          echo "Disk usage change: $usage_change bytes"
