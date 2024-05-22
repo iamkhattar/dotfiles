@@ -10,7 +10,7 @@ on:
 jobs:
   ubuntu-install:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 5
     steps:
       - name: Get initial disk usage
         id: get_initial_usage
