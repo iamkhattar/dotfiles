@@ -8,7 +8,7 @@
 
 # Load all global dotfiles
 for DOTFILE in $(ls ~/.config/bash/*.sh | sort); do
-	[ -r "~/.config/bash/$DOTFILE" ] && [ -f "~/.config/bash/$DOTFILE" ] && source "~/.config/bash/$DOTFILE";
+	[ -r "$DOTFILE" ] && [ -f "DOTFILE" ] && source "$DOTFILE";
 done;
 unset DOTFILE;
 
