@@ -74,44 +74,22 @@ function install_powershell() {
 
   # Get Ubuntu source version
   source /etc/os-release
+  tmpDir=$(mktemp -d)
 
   ###################################
-  # HACK for 24.04 until they fix it
+    # HACK for 24.04 until they fix it
+    if [[ "$VERSION_ID" == "24.04" ]]; then
+      echo -e "$GREEN - Installing powershell 24.04 HACK (libicu72) $CLEAR"
+      curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
+      sudo dpkg -i "$tmpDir"/libicu72_72.1-3ubuntu3_amd64.deb
+    end if
+  ###################################
 
-  if [[ "$VERSION_ID" == "24.04" ]]; then
-    echo -e "$GREEN - Installing powershell $CLEAR"
-    tmpDir=$(mktemp -d)
-    curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
-    sudo dpkg -i "$tmpDir"/libicu72_72.1-3ubuntu3_amd64.deb
-
-    downloadUrl=$(curl -sSL "https://api.github.com/repos/PowerShell/PowerShell/releases/latest" |
-      jq -r '[.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url][0]')
-    curl -sSL "$downloadUrl" -o "$tmpDir/powershell.deb"
-    sudo dpkg -i "$tmpDir"/powershell.deb
-  else
-    # Update the list of packages
-    sudo apt-get update
-
-    # Install pre-requisite packages.
-    sudo apt-get install -y wget apt-transport-https software-properties-common
-
-    # Download the Microsoft repository keys
-    wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
-
-    # Register the Microsoft repository keys
-    sudo dpkg -i packages-microsoft-prod.deb
-
-    # Delete the Microsoft repository keys file
-    rm packages-microsoft-prod.deb
-
-    # Update the list of packages after we added packages.microsoft.com
-    sudo apt-get update
-
-    ###################################
-    # Install PowerShell
-    sudo apt-get install -y powershell
-
-  fi
+  ## Using apt with the Microsoft repository adds too much size (200Mb), so using direct installer
+  downloadUrl=$(curl -sSL "https://api.github.com/repos/PowerShell/PowerShell/releases/latest" |
+    jq -r '[.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url][0]')
+  curl -sSL "$downloadUrl" -o "$tmpDir/powershell.deb"
+  sudo dpkg -i "$tmpDir"/powershell.deb
 }
 
 function stow_dotfiles() {
