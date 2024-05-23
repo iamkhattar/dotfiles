@@ -70,6 +70,7 @@ function create_directories() {
 
 function install_powershell() {
   #Removed for test
+  echo "dummy"
 }
 
 function stow_dotfiles() {
