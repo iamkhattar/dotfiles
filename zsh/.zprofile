@@ -1,3 +1,9 @@
+# MacOS or Linux?
+export CURRENT_OS=$(uname)
+
+# Env Var for the shell name
+export SH=zsh
+
 # Homebrew
 if [ -d "/opt/homebrew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -8,7 +14,7 @@ elif [ -d "/home/linuxbrew" ]; then
 fi
 
 # Oh My Posh
-if [[ "${CURRENT_OS}" != "Darwin" ]]; then
+if [[ "${CURRENT_OS}" == "Linux" ]]; then
   # Required for Oh My Posh
   export PATH="$PATH:$HOME/bin"
 fi
