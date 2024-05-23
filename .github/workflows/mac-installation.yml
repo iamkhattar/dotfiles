@@ -25,6 +25,7 @@ jobs:
         id: get_initial_usage
         run: |
           initial_usage=$(df -k | grep '/dev/root' | awk '{print $3}')
+          df -k
           echo "Initial disk usage: $initial_usage bytes"
           echo "initial_usage=$initial_usage" >> $GITHUB_ENV
 
