@@ -72,6 +72,7 @@ function install_powershell() {
   # exit if already installed
   if dpkg -s powershell-lts &>/dev/null; then echo -e " $GREEN - powershell is installed $CLEAR"; return; fi
 
+  # Tactical install of powershell - until support for Ubuntu 24.04 is provided
   echo -e "$GREEN - Installing powershell $CLEAR"
   tmpDir=$(mktemp -d)
   curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
@@ -165,14 +166,14 @@ function main_ubuntu() {
   clone_dotfiles
   create_directories
   install_apt_packages
-  install_powershell
+  #install_powershell
   install_oh_my_posh
   install_nanorc_highlighting
   stow_dotfiles
 }
 
 if [ "${CURRENT_OS}" == "Darwin" ]; then
-  main_macos "$@"
+  main_macos  "$@"
 else
   main_ubuntu "$@"
 fi
