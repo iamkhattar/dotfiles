@@ -167,7 +167,7 @@ function main_ubuntu() {
   clone_dotfiles
   create_directories
   install_apt_packages
-  #install_powershell
+  install_powershell
   install_oh_my_posh
   install_nanorc_highlighting
   stow_dotfiles
