@@ -23,7 +23,7 @@ jobs:
           echo "initial_usage=$initial_usage" >> $GITHUB_ENV
 
       - name: Remove Powershell
-        run: sudo dpkg -r powershell-lts
+        run: sudo dpkg -r powershell powershell-lts
 
       - name: Clone this repository
         uses: actions/checkout@v4

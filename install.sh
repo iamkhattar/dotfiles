@@ -70,7 +70,7 @@ function create_directories() {
 
 function install_powershell() {
   # exit if already installed
-  if (dpkg -s powershell-lts &>/dev/null); then echo -e " $GREEN - powershell is installed $CLEAR"; return; fi
+  if (pwsh --version &>/dev/null); then echo -e " $GREEN - powershell is installed $CLEAR"; return; fi
 
   # Get Ubuntu source version
   source /etc/os-release
