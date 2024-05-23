@@ -69,8 +69,20 @@ function create_directories() {
 }
 
 function install_powershell() {
-  #Removed for test
-  echo "dummy"
+  # exit if already installed
+  if (dpkg -s powershell-lts &>/dev/null); then echo -e " $GREEN - powershell is installed $CLEAR"; return; fi
+
+  # Tactical install of powershell - until support for Ubuntu 24.04 is provided
+  echo -e "$GREEN - Installing powershell $CLEAR"
+  tmpDir=$(mktemp -d)
+  curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
+  sudo dpkg -i "$tmpDir"/libicu72_72.1-3ubuntu3_amd64.deb
+
+  downloadUrl=$(curl -sSL "https://api.github.com/repos/PowerShell/PowerShell/releases/latest" |
+    jq -r '[.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url][0]')
+  curl -sSL "$downloadUrl" -o "$tmpDir/powershell.deb"
+  sudo dpkg -i "$tmpDir"/powershell.deb
+
 }
 
 function stow_dotfiles() {

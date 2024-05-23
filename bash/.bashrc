@@ -9,7 +9,7 @@ CURRENT_OS=$(uname)
 #  Interactive Session?
 case $- in
     *i*) export INTERACTIVE=1;;
-      *) ;;
+      *) export INTERACTIVE=0;;
 esac
 
 ###################################
