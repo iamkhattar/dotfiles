@@ -157,6 +157,9 @@ function install_apt_packages() {
     sudo echo "== Elevated =="
   fi
 
+  # Remove need to restart services
+  sudo apt-get -y remove needrestart
+
   # Update and upgrade APT packages
   echo -e "${GREEN}INFO:${CLEAR} Updating APT package list"
   sudo apt-get update > /dev/null
