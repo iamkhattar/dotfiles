@@ -82,7 +82,7 @@ function install_powershell() {
       echo -e "$GREEN - Installing powershell 24.04 HACK (libicu72) $CLEAR"
       curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
       sudo dpkg -i "$tmpDir"/libicu72_72.1-3ubuntu3_amd64.deb
-    end if
+    fi
   ###################################
 
   ## Using apt with the Microsoft repository adds too much size (200Mb), so using direct installer

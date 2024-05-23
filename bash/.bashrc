@@ -4,7 +4,7 @@
 ### CONFIGURE VARS USED BY SCRIPTS
 
 # MacOS or Linux?
-CURRENT_OS=$(uname)
+export CURRENT_OS=$(uname)
 
 #  Interactive Session?
 case $- in
