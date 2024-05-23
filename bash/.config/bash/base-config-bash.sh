@@ -1,6 +1,9 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# If not bash then quit
+if [[ "$SH" != "bash" ]]; then return; fi
+
 # If not running interactively, don't do anything
 if [[ $INTERACTIVE -eq 0 ]]; then return; fi
 
