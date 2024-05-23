@@ -86,6 +86,7 @@ function install_powershell() {
   ###################################
 
   ## Using apt with the Microsoft repository adds too much size (200Mb), so using direct installer
+  echo -e "$GREEN - Installing powershell (direct .deb) $CLEAR"
   downloadUrl=$(curl -sSL "https://api.github.com/repos/PowerShell/PowerShell/releases/latest" |
     jq -r '[.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url][0]')
   curl -sSL "$downloadUrl" -o "$tmpDir/powershell.deb"

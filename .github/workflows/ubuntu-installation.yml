@@ -22,6 +22,9 @@ jobs:
           echo "Initial disk usage: $initial_usage bytes"
           echo "initial_usage=$initial_usage" >> $GITHUB_ENV
 
+      - name: Remove Powershell
+        run: sudo dpkg -r powershell-lts
+
       - name: Clone this repository
         uses: actions/checkout@v4
 
