@@ -68,7 +68,7 @@ function create_directories() {
   mkdir -p $HOME/dev/scratch
 }
 
-function install_powershell (
+function install_powershell () {
   tmpDir=$(mktemp -d)
   curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
   dpkg -i "$tmpDir"/libicu72_72.1-3ubuntu3_amd64.deb
@@ -77,7 +77,7 @@ function install_powershell (
     jq -r '[.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url][0]')
   curl -sSL "$downloadUrl" -o "$tmpDir/powershell.deb"
   dpkg -i "$tmpDir"/powershell.deb
-)
+}
 
 function stow_dotfiles() {
   echo -e "${GREEN}INFO:${CLEAR} Stowing dotfiles"
