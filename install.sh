@@ -163,7 +163,7 @@ function install_apt_packages() {
 
   # Upgrade all packages
   echo -e "${GREEN}INFO:${CLEAR} Upgrading all APT packages"
-  sudo apt-get upgrade -y 1 > /dev/null
+  sudo apt-get upgrade -y # > /dev/null
 
   # Install required packages
   echo -e "${GREEN}INFO:${CLEAR} Installing required APT packages"
