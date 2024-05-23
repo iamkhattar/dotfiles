@@ -91,6 +91,7 @@ function install_powershell() {
     jq -r '[.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url][0]')
   curl -sSL "$downloadUrl" -o "$tmpDir/powershell.deb"
   sudo dpkg -i "$tmpDir"/powershell.deb
+  rm -rf "$tmpDir"
 }
 
 function stow_dotfiles() {
