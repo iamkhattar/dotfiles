@@ -68,7 +68,7 @@ function create_directories() {
   mkdir -p $HOME/dev/scratch
 }
 
-function install_powershell () {
+function install_powershell() {
   tmpDir=$(mktemp -d)
   curl -sSL 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb' -o "$tmpDir/libicu72_72.1-3ubuntu3_amd64.deb"
   dpkg -i "$tmpDir"/libicu72_72.1-3ubuntu3_amd64.deb
