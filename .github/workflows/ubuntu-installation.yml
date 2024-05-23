@@ -18,8 +18,8 @@ jobs:
       - name: Get initial disk usage
         id: get_initial_usage
         run: |
-          initial_usage=$(df -h -B 1 | grep '/dev/root' | awk '{print $3}')
-          echo "Initial disk usage: $initial_usage bytes"
+          initial_usage=$(df -k | grep '/mnt/c' | awk '{print $3}')
+          echo "Initial disk usage: $initial_usage kbytes"
           echo "initial_usage=$initial_usage" >> $GITHUB_ENV
 
       - name: Remove Powershell
