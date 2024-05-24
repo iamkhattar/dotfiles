@@ -168,6 +168,41 @@ function install_nanorc_highlighting() {
   /bin/bash -c "$(cat /tmp/nanorc.sh)" > /dev/null
 }
 
+function configure_wsl() {
+  # Check if running in WSL
+  if [ -z "${WSL_DISTRO_NAME}" ]; then
+      return
+  fi
+
+  # Running as WSL
+  echo -e "${GREEN}INFO:${CLEAR} Windows Subsystem for Linux (WSL) detected"
+
+  # Check if the current user is root
+  if [ "$(id -u)" -ne 0 ]; then
+    return
+  fi
+
+  # Running as default root user in WSL
+  echo -e "${RED}INFO:${CLEAR} Default Root User Detected, creating new user"
+  NEW_USER=pmg102
+
+  # Install sudo
+  sudo apt update > /dev/null
+  sudo apt install -y sudo > /dev/null
+
+  # Add user, and add to sudo group
+  sudo adduser $NEW_USER
+  sudo usermod -aG sudo $NEW_USER
+
+  echo -e "${GREEN}INFO:${CLEAR} New User '$NEW_USER' switching context. Re-run install"
+
+  # Run as new user
+  su - $NEW_USER -c "bash -c \"`curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/main/install.sh`\""
+
+  # Exit
+  exit
+}
+
 function main_macos() {
   display_banner "MacOS Edition"
   clone_dotfiles
@@ -180,6 +215,7 @@ function main_macos() {
 
 function main_ubuntu() {
   display_banner "Ubuntu Edition"
+  configure_wsl
   clone_dotfiles
   create_directories
   install_apt_packages
