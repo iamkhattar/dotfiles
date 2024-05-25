@@ -177,6 +177,12 @@ When installed to Ubuntu servers, I want the footprint to be kept to a minimum, 
 charged for the storage. This is a major reason to avoid `homebrew`. To enforce this over time
 I've included a 100MB check into the GitHub workflow.
 
+### Podman
+
+Great article on running x86 containers on aarch64:
+
+- <https://medium.com/@guillem.riera/podman-machine-setup-for-x86-64-on-apple-silicon-run-docker-amd64-containers-on-m1-m2-m3-bf02bea38598>
+
 ### Brew before I started
 
 Here's my Mac brew list before I started to automate installs
