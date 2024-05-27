@@ -278,6 +278,16 @@ Taps
 - quarkusio/tap
 - tidwall/jj
 
+### Google Cloud Shell
+
+I experimented with OMP support within Cloud Shell, but decided not to include this as a supported configuration due to:
+
+- Lack of Nerd Fonts in the interface
+- Ephemeral Machine, so have to reinstall every time, or make everything local
+- Difficulty with local install... manual build of stow, zsh, ...
+
+It might be beneficial still to install some custom commands, and dotfile settings, but not a priority.
+
 ### Interesting Links
 
 Here are a few links to apps used, or articles related to dotfiles:
