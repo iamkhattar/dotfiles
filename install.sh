@@ -191,12 +191,16 @@ function configure_wsl() {
   sudo apt install -y sudo > /dev/null
 
   # Add user, and add to sudo group
-  sudo adduser $NEW_USER
+  sudo adduser --gecos "" $NEW_USER
   sudo usermod -aG sudo $NEW_USER
 
   # Make $NEW_USER the default user
   echo "[user]" >> /etc/wsl.conf
   echo "default=$NEW_USER" >> /etc/wsl.conf
+
+  # Allow $NEW_USER to run echo and apt-get as sudo without password
+  echo "$NEW_USER ALL=(ALL) NOPASSWD: /bin/echo" > /etc/sudoers.d/010_$NEW_USER-nopasswd
+  echo "$NEW_USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get" >> /etc/sudoers.d/010_$NEW_USER-nopasswd
 
   echo -e "${GREEN}INFO:${CLEAR} New User Created '$NEW_USER' switching context. Re-run install"
 

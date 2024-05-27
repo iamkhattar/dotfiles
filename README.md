@@ -13,7 +13,7 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/ma
 ```
 
 ```sh
-bash -c "export BOOTSTRAP=https://raw.githubusercontent.com/pmgledhill102/dotfiles/dev/install.sh && `curl -fsSL \$BOOTSTRAP`"
+bash -c "`curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/dev/install.sh`"
 ```
 
 ## Overview
