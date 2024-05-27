@@ -194,10 +194,14 @@ function configure_wsl() {
   sudo adduser $NEW_USER
   sudo usermod -aG sudo $NEW_USER
 
-  echo -e "${GREEN}INFO:${CLEAR} New User '$NEW_USER' switching context. Re-run install"
+  # Make $NEW_USER the default user
+  echo "[user]" >> /etc/wsl.conf
+  echo "default=$NEW_USER" >> /etc/wsl.conf
+
+  echo -e "${GREEN}INFO:${CLEAR} New User Created '$NEW_USER' switching context. Re-run install"
 
   # Run as new user
-  su - $NEW_USER -c "bash -c \"`curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/main/install.sh`\""
+  su - $NEW_USER -c "cat /"$0/""
 
   # Exit
   exit
