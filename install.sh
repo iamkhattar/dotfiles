@@ -207,7 +207,7 @@ function configure_wsl() {
   fi
 
   # Rerunning  as new user
-  su - $NEW_USER -c "curl -fsSL \$BOOTSTRAP | bash"
+  su - $NEW_USER -c "curl -fsSL $BOOTSTRAP | bash"
 
   # Exit
   exit
