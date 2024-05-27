@@ -199,13 +199,15 @@ function configure_wsl() {
   echo "default=$NEW_USER" >> /etc/wsl.conf
 
   # Allow $NEW_USER to run echo and apt-get as sudo without password
-  echo "$NEW_USER ALL=(ALL) NOPASSWD: /bin/echo" > /etc/sudoers.d/010_$NEW_USER-nopasswd
-  echo "$NEW_USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get" >> /etc/sudoers.d/010_$NEW_USER-nopasswd
+  # echo "$NEW_USER ALL=(ALL) NOPASSWD: /bin/echo" > /etc/sudoers.d/010_$NEW_USER-nopasswd
+  # echo "$NEW_USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get" >> /etc/sudoers.d/010_$NEW_USER-nopasswd
 
   echo -e "${GREEN}INFO:${CLEAR} New User Created '$NEW_USER' switching context. Re-run install"
 
   # Rerunning  as new user
-  su - $NEW_USER -c "curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/dev/install.sh | bash"
+  sudo -u $NEW_USER "curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/dev/install.sh | bash"
+
+  #su - $NEW_USER -c "curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/dev/install.sh | bash"
 
   # Exit
   exit
