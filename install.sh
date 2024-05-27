@@ -200,8 +200,14 @@ function configure_wsl() {
 
   echo -e "${GREEN}INFO:${CLEAR} New User Created '$NEW_USER' switching context. Re-run install"
 
-  # Run as new user
-  su - $NEW_USER -c "cat /"$0/""
+  # Check for Bootstrap URL
+  if [[ -z "$BOOTSTRAP" ]]; then
+    echo -e "${RED}ERROR:${CLEAR} Bootstrap URL not set. Manually re-run script under $NEW_USER user context"
+    exit 1
+  fi
+
+  # Rerunning  as new user
+  su - $NEW_USER -c "curl -fsSL \$BOOTSTRAP | bash"
 
   # Exit
   exit

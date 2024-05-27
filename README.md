@@ -12,6 +12,10 @@
 bash -c "`curl -fsSL https://raw.githubusercontent.com/pmgledhill102/dotfiles/main/install.sh`"
 ```
 
+```sh
+bash -c "export BOOTSTRAP=https://raw.githubusercontent.com/pmgledhill102/dotfiles/dev/install.sh && `curl -fsSL \$BOOTSTRAP`"
+```
+
 ## Overview
 
 Welcome to my dotfiles repository! This repository contains personal configuration files (often
