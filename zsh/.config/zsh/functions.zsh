@@ -1,5 +1,5 @@
 function drun() {
-  docker run --rm -it $1 /bin/sh
+  docker run -w /workspace -e PS1="🐳 \[\033[1;36m\]\h \[\033[1;34m\]\W\[\033[0;35m\] \[\033[1;36m\]# \[\033[0m\]" --rm -it $1 /bin/sh
 }
 
 function digga() {
